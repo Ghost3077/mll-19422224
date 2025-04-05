@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>机器学习课设</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+    type='text/css'>
+  <link
+    href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+    rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+  <script src="js/myFun.js"></script>
+
+</head>
+
+<body>
+
+   <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://www.njau.edu.cn/">NJAU</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        菜单
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.bilibili.com/"target="_blank">bilibili</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dataPre.html">数据展示</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="randVideo()">随机视频</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="ourPage()">课程论文</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/che.GIF')">
+<!--    <div class="overlay"></div>-->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>数据预处理</h1>
+            <span class="subheading">哔哩哔哩排行榜视频可视化</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+                  <hr>
+          <a href="code.html">
+            <h2 class="post-title">
+              抓取数据
+            </h2>
+            <h3 class="post-subtitle">
+              用Python爬虫取数据， 哔哩热榜视频尽收录。
+            </h3>
+          </a>
+          <p class="post-meta">
+            <a type="button" data-container="body" data-toggle="popover" data-placement="left" onclick="info(1);"
+              data-content="李白《金陵三首（一）》">金陵空壮观，天堑净波澜。 醉客回桡去，吴歌且自欢。</a>
+          </p>
+        </div>
+        <hr>
+        <div class="post-preview">
+          <a href="dataPre.html">
+
+            <h2 class="post-title">
+              数据可视化
+            </h2>
+            <h3 class="post-subtitle">
+              爬得数据展图表， Echarts在线绘精彩。
+            </h3>
+          </a>
+          <p class="post-meta">
+            <a type="button" data-container="body" data-toggle="popover" data-placement="left" onclick="info(1);"
+              data-content="韦庄《金陵图》">谁谓伤心画不成，画人心逐世人情。 君看六幅南朝事，老木寒云满故城。</a>
+          </p>
+        </div>
+        <hr>
+
+        </div>
+        <hr>
+      <br><br><br><br>
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#" onclick="randVideo()">随机视频 &rarr;</a>
+        </div>
+      </div>
+    </div>
+<!--  </div>-->
+
+<!--  <hr>-->
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="https://www.huijiwiki.com/wiki/%E9%A6%96%E9%A1%B5">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitch fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted"><a href="https://www.njau.edu.cn/xxjj_1033/list.htm" target="_blank"> &copy; 使用说明书 &copy; </a></p>
+          <p class="copyright text-muted">南朝四百八十寺，多少楼台烟雨中。</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom scripts for this template -->
+  <script src="js/clean-blog.min.js"></script>
+  <script>
+    $(function () {
+      $("[data-toggle='popover']").popover();
+      $('body').on('click', function (e) {
+        $('[data-toggle="popover"]').each(function () {
+          if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target)
+            .length === 0) {
+            $(this).popover('hide');
+          }
+        });
+      });
+
+      $('body').on('hidden.bs.popover', function (e) {
+        $(e.target).data("bs.popover").inState.click = false;
+      });
+    });
+  </script>
+
+</body>
+
+</html>
