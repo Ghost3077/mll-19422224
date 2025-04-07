@@ -5,7 +5,7 @@
   <title>论文标题</title>
   <style>
     body {
-      font-family: "宋体", serif;
+      font-family: "楷体", serif;
       line-height: 1.8;
       margin: 40px;
       background-color: #fefefe;
@@ -34,13 +34,187 @@
 </head>
 <body>
 
-  <div class="title">基于B站排行榜的热门视频数据分析与可视化研究</div>
-  <div class="subtitle">作者：小辰辰、可爱的你、最棒的我们</div>
+  <div class="title">哔哩哔哩网站不同区域排行榜视频相关信息爬取与可视化</div>
+  <div class="subtitle">作者：孟罗兰</div>
 
   <div class="content">
     本研究通过爬虫技术抓取哔哩哔哩网站不同区域排行榜的热门视频信息，并对所获取数据进行清洗与预处理。随后，使用Echarts进行可视化展示，以图表形式呈现视频播放量、点赞数、弹幕数量等关键指标，帮助用户直观了解不同视频的热度变化和传播特征。
     <br><br>
-    本文首先介绍了数据采集的方法和步骤，接着详细讲解了预处理流程，包括去重、缺失值处理和格式标准化等。最后结合可视化图例分析了不同视频类别的受欢迎程度，并对未来内容推荐和平台发展趋势提出了建议。
+    摘  要
+随着短视频和弹幕文化的迅速发展，哔哩哔哩作为中国年轻用户聚集的重要视频平台，聚合了大量优质的原创内容和多样化的视频类型。随着哔哩哔哩国际化战略的推进，其不同区域内容生态呈现显著差异性。本研究以机器学习数据预处理为核心，构建跨区域视频分析数据集，设计并实现了针对B站排行榜的视频信息爬取与处理系统。本文以“哔哩哔哩网站不同区域排行榜视频相关信息爬取与可视化”为课题，开展了数据获取与分析工作。首先通过分析B站各区域排行榜页面的结构，设计并实现了一个Python爬虫程序，爬取了包括视频标题、UP主、播放量、点赞数等在内的核心信息。随后，针对获取的数据进行清洗处理，以提升数据质量与分析效率。在数据可视化方面，本文采用Matplotlib和Seaborn等工具，直观展示了各区域视频的热度特征和受众偏好。本研究不仅为理解B站内容生态提供了数据支持，也为跨文化推荐系统提供高质量数据集，更建立了适应平台特性的数据处理范式，对多源异构数据的特征工程方法具有实践指导价值。
+
+
+关键词：数据预处理；哔哩哔哩；数据爬取；可视化分析；特征工程
+
+
+CRAWLING AND VISUALISING RELEVANT INFORMATION FROM THE BILIBILI WEBSITE'S REGIONAL RANKING VIDEOS.
+ABSTRACT
+With the globalization strategy of Bilibili, significant disparities have emerged in its regional content ecosystems. Focusing on machine learning data preprocessing, this study constructs a cross-regional video analysis dataset by developing a scraping and processing system for Bilibili's Mainland, Hong Kong, and Taiwan regional rankings. A region-sensitive preprocessing framework is proposed: Z-score method for view-count anomaly detection, BERT-based multilingual title vectorization, and cultural difference quantification through Regional Preference Index (RPI). With the rapid development of short video platforms and bullet comment culture in China, Bilibili has emerged as one of the most influential platforms among young users, offering a wide variety of high-quality content across multiple categories. This paper focuses on the topic “Crawling and Visualization of Video Information from Bilibili Regional Rankings,” aiming to collect, clean, and analyze video data from various ranking sections on Bilibili. By examining the HTML structure of the ranking pages, we developed a Python-based web crawler to extract key video information, including title, uploader,view count, likes, comments, and bullet comments. After data preprocessing such as cleaning, deduplication, and formatting, we used tools like Matplotlib and Seaborn for visualization to better understand user preferences and video popularity patterns. The results demonstrate that videos from different regions exhibit distinct trends in popularity and engagement. This study not only provides a data-driven perspective on Bilibili's content ecosystem but also lays the groundwork for future machine learning applications involving video data analysis.This research not only provides high-quality datasets for cross-cultural recommendation systems but also establishes a platform-specific data processing paradigm, offering practical guidance for feature engineering with multi-source heterogeneous data.
+
+
+
+KEY WORDS：Data Preprocessing; Bilibili; Web Scraping; Visual Analytics; Feature Engineering
+     <br><br>
+第一章 绪论
+随着互联网技术的快速发展，在线视频平台已经成为人们获取信息与娱乐内容的重要渠道。其中，哔哩哔哩作为中国领先的弹幕视频分享网站，凭借其强大的二次元文化氛围、多元化的内容生态与活跃的用户互动机制，已经逐渐发展成为集娱乐、知识、学习与社交于一体的综合性平台。平台涵盖动画、游戏、音乐、影视、科技、生活等多个视频分区，吸引了大量的年轻用户和创作者。B站的视频排行榜作为平台的重要入口之一，集中展示了各个分区在一定时间内最受欢迎的视频内容。排行榜不仅反映了当前平台内容的热度趋势，也在一定程度上影响了用户的观看选择和内容创作者的制作方向。因此，围绕排行榜进行的数据分析，有助于深入理解平台的内容分布、用户行为特征和热门趋势，对视频内容平台的研究和商业分析具有重要价值。
+数据挖掘与机器学习技术的不断发展，如何高效获取并可视化处理真实的互联网数据，成为许多研究与工程实践中的关键问题。B站作为一个内容丰富且更新频繁的平台，其区域排行榜所反映出的用户偏好与内容热度，正是数据分析的重要研究对象。
+通过对排行榜视频的相关信息（如播放量、弹幕数、评论数、点赞数、收藏数、综合得分等）进行抓取、统计和可视化展示，不仅可以揭示不同分区用户的兴趣偏好和活跃度差异，还可以为推荐系统、用户画像构建、内容运营决策等方向提供数据支持。
+本文旨在围绕“哔哩哔哩网站不同区域排行榜视频相关信息爬取与可视化”这一主题，借助 Python 编写爬虫程序，对 B站首页的多个区域（共13个）排行榜页面进行结构化数据采集，并对获取的数据进行预处理与分类统计，最终通过网页端的图表展示形式（如 ECharts）进行直观可视化。
+
+    <br><br>
+第一章   数据爬取
+因为b站的界面展示的是静态页面，即右键查看网页源码所反馈出来的信息是直接加载到客户浏览器上显示出来的，而且b站并没有进行反爬虫的策略，因此进行爬取就比较简单了。只需用到正则表达式和requests库就能实现了。至于对excel的操作则需要第三方库xlsxwriter模块，对excel进行写入操作则是将要写进的数据存进列表里然后通过遍历来逐个写入excel对应的行与列中。
+
+crawler.py:
+该模块负责自动爬取哔哩哔哩（Bilibili）全站及13个分区的排行榜视频数据，包括日榜、周榜与月榜，并将获取的数据保存为结构化的 CSV 文件，供后续数据处理与可视化使用。
+利用 requests 库对 https://api.bilibili.com/x/web-interface/ranking 接口进行访问，按不同 rid（分区 ID）与 day（时间粒度）组合构造 URL。通过参数控制循环访问全站和12个分区，共13个区域，结合日榜、周榜、月榜三种时间模式，最终实现接口数据抓取。使用 dict_get() 函数递归提取 JSON 中的关键字段，如 bvid（视频 ID）、author（UP主）、play（播放数）、coins（投币数）、pts（综合得分）等，定义 Video 类用于封装视频对象，并实现 to_csv() 方法便于数据导出。使用 csv.writer 将每个榜单前100条视频信息保存为命名规则为 分区名+榜单类型top100.csv 的文件。
+输出样例字段：视频bv号  up主  投币数  播放数  综合得分  视频标题  弹幕数  是否原创
+该爬虫模块是论文中数据采集与预处理阶段的核心，是对真实数据获取、接口利用的重要手段。通过结构化保存多分区、多时间粒度的视频指标信息，为后续的数据可视化、内容分布研究提供了坚实的数据基础，并且crawler.py模块具备良好的可扩展性，可轻松接入更多字段或时间段，适合用于持续数据更新与动态趋势分析。
+
+sum.py:
+Sum.py是数据汇总模块，它在之前爬取到的分区排行榜基础上，进一步对各分区视频数据做了“播放量总和”和“投币数总和”的统计。
+这个模块用于对已爬取的哔哩哔哩不同分区排行榜数据进行按时间维度（日榜、周榜、月榜）汇总统计，并生成对应的 CSV 文件，形成可视化前的数据准备结果。目标在于统计每个分区在榜单上的总播放量和总投币数，以支持后续的图表呈现与内容分析。
+首先读取原始排行榜 CSV 数据，路径结构统一为 /data/分区名+时间top100.csv，循环遍历每个分区（共13个）和每种时间粒度（共3种），实现总共排行榜数据的批量处理。之后对每个排行榜的前100条视频数据进行遍历，播放量字段位置：data[i][3]，投币数字段位置：data[i][2]，累加计算当前分区该时间榜单下的视频总播放量与总投币数。最后封装并导出数据，使用自定义 Video 类封装汇总结果，字段包括：分区名、播放总量、投币总量。
+所有分区的汇总结果按时间维度分别写入/data/sum/日排行总和.csv、周排行总和.csv、月排行总和.csv 三个文件中。
+输出字段：分区   播放量总量   硬币总量
+此模块同样是数据预处理流程中的重要环节，将分散在不同榜单的原始数据进一步聚合，让数据可视化，更加直观且具备洞察价值。通过计算分区维度上的播放和投币总量，可以清晰比较不同分区的内容热度与用户参与度，为平台内容偏好趋势分析提供可靠支持。
+ <br><br>
+  第二章   可视化
+可视化页面选择在github上部署，页面为：机器学习课设
+此模块主要分为index.html，code.html，datapre.html文件。前端使用 JavaScript 实现的开源库,采用基于BootStrap框架的网页，可视化部分使用Echarts库,实现PC端的较好的阅读体验。后端,网页用JS脚本同前端界面交互，进一步处理数据并展示。
+index.html:
+这个页面为系统的首页，负责展示项目主题、核心功能导航以及视觉导览。技术栈构成：
+完成这部分时，用到了HTML5 + CSS3以构建页面基础结构与样式和Bootstrap 4来响应式布局与UI组件快速构建。同时考虑到用户互动，使用了JavaScript + jQuery实现动态交互行为，如弹出提示与随机视频功能，ECharts（嵌套页面中实现）：用于数据可视化图表的绘制。
+字体资源：引入 Google Fonts 以及 Font Awesome 图标库增强美观性。
+ 顶部的导航栏含有“bilibili官网”、“数据展示”、“随机视频”、“课程论文”导航选项，使用 Bootstrap 的 navbar 模块构建，具有响应式特性，适配不同屏幕大小。“随机视频”与“课程论文”按钮调用自定义 JavaScript 函数 randVideo() 和 ourPage() 实现动态跳转或数据操作。
+背景使用动态图片 che.GIF，增强视觉吸引力，项目标题为“数据预处理”，副标题为“哔哩哔哩排行榜视频可视化”，传达了项目核心内容，使用 masthead 类进行定制样式排版。
+在导航栏的下方是两个主功能入口块。点击“抓取数据”会跳转至 code.html 页面，介绍并展示 Python 爬虫模块。单击“数据可视化”则跳转至 dataPre.html 页面，呈现排行榜统计图表。
+每个功能块下方都配有精选古诗句，以文学化方式点缀页面，使内容更具文化气息和艺术感。
+底部信息包含跳转链接（如 Wiki 和南农官网介绍页面），使用 Font Awesome 图标美化社交链接。页面底部引用杜牧诗句“南朝四百八十寺，多少楼台烟雨中”，呼应了整体风格。
+ <br><br>
+    
+datapre.html:
+用于展示哔哩哔哩不同区域排行榜数据的可视化界面，页面主要功能点包括图表展示与数据下载功能。
+顶部导航栏含跳转链接：NJAU官网、bilibili主页、数据展示（本页）、随机视频、课程论文。点击“随机视频” 或 “课程论文” 会触发 JavaScript 的 randVideo() 和 ourPage() 方法。可视化图表区（main1/main2/main3）默认隐藏，点击“加载图表”才显示，图表通过 myDraw(name) 函数动态生成，定义在 myFun.js 里。
+同时下方还有两个下拉框 + 加载按钮区域 ：
+下拉1：选择 分区（如 动画、音乐、生活 等）
+下拉2：选择 时间范围（日/周/月排行）
+两个下拉都用到了 Selectize.js 插件做美化。点击“加载图表”会检查两个选择框是否非空，组装请求名，例如：动画日排行top100，并调用 myDraw 绘图并显示图表区域。展示“下载数据”按钮，点击“下载数据”会尝试下载 /data/xxx.csv 的数据文件。
+底部页脚，包含一个链接按钮（指向辉迹维基），使用说明书指向本页面的使用说明 。 
+<br><br>
+    myFun.js:
+这个 JavaScript 脚本主要是配合 ECharts 图表库进行数据可视化，用于展示哔哩哔哩各个分区不同时间维度的排行榜信息，读取 CSV 数据并可视化得分、播放量、弹幕、硬币数等指标。
+
+1. 全局变量定义和窗口自适应：
+var chart1, chart2, chart3;
+window.onresize = function () {
+    chart1.resize();
+    chart2.resize();
+    chart3.resize();
+}
+定义了三个 ECharts 图表变量，监听窗口大小改变事件，自动调整图表尺寸，保证响应式展示。
+
+ 2. 打开网页功能（ourPage）
+
+function ourPage() {
+    alert("即将为你打开网页:题目");
+    window.open("paper.html", 'one');
+}
+弹窗提醒，并打开名为 paper.html 的网页。
+
+ 3. 读取 CSV 数据的函数（dataRead）
+
+function dataRead(name, callback) {
+    var dataList = new Array();
+    $.ajax({
+        url: "data/" + name + ".csv",
+        async: false, 
+        success: function (result) {
+            var tempList = result.split("\n");
+            for (var i = 0; i < tempList.length - 1; i++) {
+                dataList[i] = tempList[i + 1].split(",");
+            }
+        }
+    });
+    callback(dataList);
+}
+用 jQuery 的 $.ajax 加载本地 CSV 数据，使用 split("\n") 拆分行，逗号分列，再通过回调传回数据。
+
+ 4. 随机视频跳转（randVideo）
+
+function randVideo() {
+    var nameList1 = ["全站", "动画", "国创相关", "音乐", "舞蹈", "游戏", "知识", "数码", "生活", "鬼畜", "时尚", "娱乐", "影视"]
+    var nameList2 = ["月排行", "周排行", "日排行"];
+    rankType = nameList1[Math.floor(Math.random() % 13)];
+    rankTime = nameList2[Math.floor(Math.random() % 3)];
+    name = rankType + rankTime + "top100";
+    num = Math.round(100 * Math.random());
+    
+    dataRead(name, function (data) {
+        bv = data[num][0];
+        videoName = data[num][5];
+        upName = data[num][1];
+        alert("即将为你打开" + rankType + rankTime + "榜第" + num + "个视频!\n" + upName + "的" + "====" + videoName + "====");
+        window.open("http://www.bilibili.com/" + bv, "_blank");
+    });
+}
+从 13 个分区 + 3 个排行周期中随机选择一个榜单，再从 top100 随机选出一个视频，并打开其bv链接。
+
+5. 主绘图函数（myDraw）
+
+function myDraw(name) {
+    
+    dataRead(name, function (data) {
+        ...
+        // chart1: 视频得分 + 播放量
+        chart1 = echarts.init(document.getElementById('main1'), 'purple-passion');
+        // chart2: 硬币 + 弹幕 + 饼图联动
+        chart2 = echarts.init(document.getElementById('main2'), 'purple-passion');
+        chart2.on('updateAxisPointer', function (event) {
+            // 鼠标滑动更新饼图展示内容
+        });
+    });
+    sumDraw(name); // 最后画 chart3
+}
+利用 echarts 实例化图表展示数据。
+图表1：柱状图（得分）+ 折线图（播放量）。
+图表2：两个折线图（弹幕 + 硬币），再加一个饼图用于联动展示。
+图表3：调用 sumDraw，展示各分区汇总信息。
+
+6. 汇总数据绘图（sumDraw）
+
+function sumDraw(name) {
+    ...
+    docName = 'sum/' + name.substr(name.length - 9, 3) + '总和';
+    dataRead(docName, function (data) {
+        ...
+        // chart3: 播放量 + 硬币的两个玫瑰图（饼图）
+        chart3 = echarts.init(document.getElementById('main3'), 'purple-passion');
+        ...
+    });
+}
+根据当前排行榜名称推断对应的“分区汇总文件”。
+展示两个 roseType 的饼图：播放量 & 硬币数量，中心位于两侧，对比不同分区的表现。
+<br><br>
+第三章 结论与展望
+项目搭建了一个较为完整的数据预处理与可视化平台，系统性地实现了从数据采集、清洗、特征工程、数据可视化展示的一系列流程。
+通过爬虫技术实现了对B站各区域排行榜数据的自动化抓取，涵盖了视频标题、播放量、点赞量、投币量、分享数、弹幕数量、分类等多个关键维度，构建出具有结构性和可扩展性的数据集。针对原始数据中的缺失值、异常值进行了系统性的处理，同时引入标准化与归一化技术，为后续建模与分析提供了高质量的数据基础。
+基于Echarts与Selectize.js开发了友好的数据选择与展示界面，用户可根据区域与时间维度动态查看排行榜结构与变化趋势。总体而言，项目在视频内容分析与热点特征挖掘方面提供了有益的探索路径，能够为内容创作者和平台策略制定者提供一定的数据支持与启发意义。
+本研究完成了从数据获取到可视化完整流程，但仍存在一些不足之处。例如特征维度有限，尚未引入如视频时长、UP主影响力、弹幕情感分析等更具深度的特征，导致模型在表达能力上可能有所欠缺；数据时效性问题，排行榜数据为特定时间节点快照，未形成长时间序列，影响了对趋势的预测能力；数据来源平台局限，目前仅聚焦于B站，若能拓展至多个视频平台将更具代表性。
+在未来的研究和开发中，可从以下几个方向展开进一步工作：引入复杂的机器学习与深度学习模型：如使用神经网络模型预测视频热度走势，引入时序分析（如LSTM、Transformer）对视频流量趋势进行动态建模；多维度融合建模：引入自然语言处理（NLP）技术分析视频标题、评论情感等文本内容，结合数值指标实现更精准的内容分类与推荐；构建动态实时数据更新，利用调度与缓存技术，构建实时数据更新机制，使得排行榜数据具备时效性与连续性，支持趋势追踪与突发事件捕捉；平台横向扩展，将系统扩展至抖音、快手、微博等平台，构建跨平台内容流行度预测模型，为传媒、营销等领域提供更广泛的数据支持。
+
+
+
+参考文献
+[1]万常选,邓松,刘喜平,廖国琼,刘德喜,江腾蛟.Web 数据源选择技术[J].软件学报,2013,24(4):781-797.
+[2] Li WK, Bu JY, Li XQ, Chen XY. Security analysis of DeFi: Vulnerabilities, attacks and advances. In: Proc. of the 2022 IEEE Int’l Conf. on Blockchain. Espoo: IEEE, 2022. 488–493.
+[3] Shamir A. How to share a secret. Communications of the ACM, 1979, 22(11): 612–613.
+[4]胡燕,张颂扬.基于Google Web API的中文训练库自动获取方法研究[J].计算机与数字工程,2008,36(5):8-10.
+[5]徐小卫,杨亚洲.Python第三方库xlwings在Excel数据处理中的应用[J].电脑编程技巧与维护,2022(9):119-121.
+[6]李硕,刘杰,王帅,田浩翔,叶丹.第三方库依赖冲突问题研究综述[J].软件学报,2023,34(10):4636-4660.
+[7]罗雄飞,王宏安,田 丰,戴国忠,滕东兴.一种时序数据的可视化技术与工具[J].软件学报,2009,20(Z1):104-112.
+
+    
   </div>
 
 </body>
